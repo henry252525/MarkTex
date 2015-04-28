@@ -111,5 +111,5 @@ Given an equation in the form of $0 = ax^2 + bx + c$, we can solve for $x$ using
 The mapping to either `$` or `\[` should be inferred by the compiler.
 
 # Resources
-https://guides.github.com/features/mastering-markdown/
-https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
+* https://guides.github.com/features/mastering-markdown/
+* https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
