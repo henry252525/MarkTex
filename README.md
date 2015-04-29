@@ -63,7 +63,75 @@ This \texttt{code} is inline
 ```
 
 ## Lists
-TODO: Do we want to manually specify the number in a numbered list? Or do we want to add a twist to the original syntax?
+### Unordered Lists
+In Markdown, unordered lists can be specified with either `-` or `*`. The concept of nested lists also exists through indentation. Below is an example of how to specify unordered lists in Markdown
+```markdown
+* Some point
+  * Nesting is cool
+  * Seriously cool
+* Some other point
+  - I am also a list
+  - No lies
+* Some awesome point
+```
+The above Markdown produces the following list
+
+* Some point
+  * Nesting is cool
+  * Seriously cool
+* Some other point
+  - I am also a list
+  - No lie
+* Some awesome point
+
+This is equivalent to the following in LaTeX
+```latex
+\begin{itemize}
+    \item Some point
+        \begin{itemize}
+            \item Nesting is cool
+            \item Seriously cool
+        \end{itemize}
+    \item Some other point
+        \begin{itemize}
+            \item I am also a list
+            \item No lie
+        \end{itemize}
+    \item Some awesome point
+\end{itemize}
+```
+
+### Ordered Lists
+Ordered lists are preceeded by `n.` instead of `-` or `*`, where `n` is a number. Identical nesting concepts exist for ordered lists as they do for unordered lists. Mixing of the two also works. For example, the following code in Markdown
+```markdown
+1. I am number 1
+   * As per usual
+   * #YOLOSWAG #LifeIsTooEasy #FBB
+2. I am the first loser
+3. Just barely got bronze!
+```
+produces this following list
+
+1. I am number 1
+   * As per usual
+   * #YOLOSWAG #LifeIsTooEasy #FBB
+2. I am the first loser
+3. Just barely got bronze!
+
+The equivalent LaTeX code for this is similar to that of an unordered list where instead of `itemize`, we use `enumerate`
+```latex
+\begin{enumerate}
+    \item I am number 1
+        \begin{itemize}
+            \item As per usual
+            \item #YOLOSWAG #LifeIsTooEasy #FBB
+        \end{itemize}
+    \item I am the first loser
+    \item Just barely got bronze!
+\end{enumerate}
+```
+
+TODO: Is it a good idea to have the user manually enter the number in an ordered list? Or do we want to add a twist to this where the numbering is taken care of by the compiler?
 
 ## Tables
 TODO: What's a good syntax we can use to make typesetting tables easy?
