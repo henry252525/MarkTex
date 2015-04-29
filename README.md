@@ -126,6 +126,7 @@ should compile to
 \textit{This entire block is in italics}, but this\_random\_word is not
 ```
 
+### Math-Mode
 Another consideration would be the `$` character used to enter math-mode. This can be handled in one of two ways:
 
 1. This should be escaped manually by the user, or
@@ -146,6 +147,16 @@ Given an equation in the form of $0 = ax^2 + bx + c$, we can solve for $x$ using
 \]
 ```
 The mapping to either `$` or `\[` should be inferred by the compiler.
+
+### Quotes
+In LaTeX, the orientation of quotes are handled manually. That is, we would normally have to write
+
+    ``Lorem Ipsum'' dolor sit amet
+
+In order to obtain double-quotes which wraps around the text "Lorem Ipsum". This is annoying. Instead, the compiler should be able to detect appropriate pairings of `"` and infer the orientation for you. Therefore, the above text in LaTeX should be equivalent to the following in markdown
+```markdown
+"Lorem Ipsum" dolor sit amet
+```
 
 # Resources
 * https://guides.github.com/features/mastering-markdown/
