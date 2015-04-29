@@ -69,7 +69,44 @@ TODO: Do we want to manually specify the number in a numbered list? Or do we wan
 TODO: What's a good syntax we can use to make typesetting tables easy?
 
 ## Images
-TODO: Coming soon
+Images in Markdown are done as follows
+```markdown
+![alt text](dir/to/some/image.jpg)
+```
+This is equivalent to the following in LaTeX
+```latex
+\begin{figure}
+    \centering
+    \includegraphics{dir/to/some/image.jpg}
+    \caption{alt text}
+\end{figure}
+```
+
+A few things to think about:
+
+1. The alt text is neglected
+
+   We can drop the entire block for the alt text in Markdown as follows
+
+   ```markdown
+   !(dir/to/some/image.jpg)
+   ```
+   This translates to
+   ```latex
+   \begin{figure}
+       \centering
+       \includegraphics{dir/to/some/image.jpg}
+   \end{figure}
+   ```
+2. An option to adjust the scale of the image
+
+   ```latex
+   \begin{figure}
+       \centering
+       \includegraphics[width=some_scale\textwidth]{dir/to/some/image.jpg}
+   \end{figure}
+   ```
+   where `some_scale` can be set by the user via some optional syntax. As a default, `some_scale = 0.6`
 
 ## Special Characters and Character Escaping
 There are certain characters in LaTeX that should be escaped. Escaping of these characters should be done automatically within the compiler to enable more fluid note-taking. The following in Markdown
