@@ -136,6 +136,34 @@ TODO: Is it a good idea to have the user manually enter the number in an ordered
 ## Tables
 TODO: What's a good syntax we can use to make typesetting tables easy?
 
+### Proposed Method #1
+A good starting point could be http://en.wikipedia.org/wiki/Textile_%28markup_language%29#Tables where instead of using `_.` to denote boldface, we can change it up a little bit and use it to denote alignment. We can also double up on the pipe symbol (use `||` instead of `|`) to get a stronger vertical line separation. Similarly, we can use either `-` or `=` to specify the horizontal rules for our table.
+
+An example describing this proposed method is demonstrated below. The following is the proposed method in Markdown.
+```markdown
+|. This || is | a | header .|
+---------------------
+| a1 | a2 | a3 | a4 |
+| b1 | b2 | b3 | b4 |
+```
+This produces the following in LaTeX
+```latex
+\begin{table}
+    \centering
+    \begin{tabular}{| l || c | c | r |}
+        \hline
+        This & is & a  & header \\
+        \hline
+        a1   & a2 & a3 & a4 \\
+        b1   & b2 & b3 & b4 \\
+        \hline
+    \end{tabular}
+\end{table}
+```
+By default, the entire table is enclosed a single solid outline.
+
+TODO: How do we handle table captions?
+
 ## Images
 Images in Markdown are done as follows
 ```markdown
