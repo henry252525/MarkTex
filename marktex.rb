@@ -1,14 +1,6 @@
 Dir[File.dirname(__FILE__) + '/ast/*.rb'].each {|file| require file }
 
-input = 
-"""# section
-# # I am a section
-#  I'm a section
- # I am not a section
-## I am totally a SUBsection
-"""
-
-@input_lines = input.split("\n")
+@input_lines = $stdin.read.split("\n")
 
 def header_parse()
   [Subsection, Section].each do |expr|
