@@ -3,7 +3,9 @@ Dir[File.dirname(__FILE__) + '/ast/*.rb'].each {|file| require file }
 @input_lines = $stdin.read.split("\n")
 
 def block_parse()
-  header_parse || paragraph_parse
+  child = header_parse || paragraph_parse
+  return nil if child.nil?
+  Block.new child
 end
 
 def header_parse()
@@ -38,7 +40,7 @@ def paragraph_parse()
   end
 
   return nil if data.empty?
-  return Paragraph.new data.join(' ')
+  Paragraph.new data.join(' ')
 end
 
 until @input_lines.empty? do
