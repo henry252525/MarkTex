@@ -3,7 +3,7 @@ Dir[File.dirname(__FILE__) + '/ast/*.rb'].each {|file| require file }
 @input_lines = $stdin.read.split("\n")
 
 def header_parse()
-  [Subsection, Section].each do |expr|
+  [Subsubsection, Subsection, Section].each do |expr|
     child = expr.parse @input_lines[0]
 
     next if child.nil?
