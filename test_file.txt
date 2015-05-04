@@ -1,6 +1,8 @@
 # section
 # I am a section
 #    I'm a section
- # I am not a section
-I am not a section
+ # I am a paragraph.
+I am on the same paragraph
+
+I am a separate paragraph
 ## I am totally a SUBsection
