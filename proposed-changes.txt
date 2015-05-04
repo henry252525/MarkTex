@@ -1,4 +1,10 @@
 - only have three levels of headers
-~latex {
+- The following syntax for latex mode
+  ~latex {
 
-}
+  }
+- The following syntax for text decorations
+  - *bold*
+  - /italic/
+  - -strikethrough-
+  - _underline_
