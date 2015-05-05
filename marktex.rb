@@ -68,8 +68,11 @@ def unordered_list_item_parse(input)
   UnorderedListItem.new children
 end
 
+# TODO: Do not repeat unordered list tokens
 FORBIDDEN_STRINGS = [
-  '#'
+  '#',
+  '- ',
+  '* '
 ]
 def paragraph_parse(input)
   data = []
