@@ -84,6 +84,7 @@ def paragraph_parse(input)
     should_break = false
     FORBIDDEN_STRINGS.each do |s|
       should_break = input.first.start_with? s
+      break if should_break
     end
     break if should_break
     data.push input.shift
