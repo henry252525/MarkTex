@@ -3,7 +3,7 @@ Dir[File.dirname(__FILE__) + '/ast/*.rb'].each {|file| require file }
 input_lines = $stdin.read.split("\n")
 
 def block_parse(input)
-  child = header_parse(input) || paragraph_parse(input)
+  child = header_parse(input) || unordered_list_parse(input) || paragraph_parse(input)
   return nil if child.nil?
   Block.new child
 end
@@ -28,6 +28,44 @@ def header_parse(input)
   end
 
   return nil
+end
+
+UNORDERED_LIST_TOKENS = ['* ', '- ']
+def unordered_list_parse(input)
+  return nil unless input.first.start_with?(*UNORDERED_LIST_TOKENS)
+  list_input = []
+
+  while !input.empty?
+    is_list_item = input.first.start_with?(*UNORDERED_LIST_TOKENS)
+    is_indented = input.first.start_with?('  ')
+    is_blank_line = input.first.strip.empty?
+
+    break unless is_list_item || is_indented || is_blank_line
+    list_input.push input.shift
+  end
+
+  children = []
+  until list_input.empty?
+    list_item_input = []
+    loop do
+      next_line = list_input.shift[2..-1] || ''
+      list_item_input.push next_line
+      break if list_input.empty? || list_input.first.start_with?(*UNORDERED_LIST_TOKENS)
+    end
+    children.push(unordered_list_item_parse list_item_input)
+  end
+  UnorderedList.new children
+end
+
+def unordered_list_item_parse(input)
+  children = []
+  until input.empty?
+    child = unordered_list_parse(input) || paragraph_parse(input)
+    children.push(child) unless child.nil?
+  end
+  children.push(Paragraph.new('')) if children.empty?
+
+  UnorderedListItem.new children
 end
 
 FORBIDDEN_STRINGS = [
@@ -55,6 +93,7 @@ end
 
 
 
+
 until input_lines.empty? do
   prev_output = block_parse input_lines
   if prev_output.nil?
@@ -64,3 +103,5 @@ until input_lines.empty? do
     puts prev_output
   end
 end
+
+
