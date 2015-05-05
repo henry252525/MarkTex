@@ -8,14 +8,23 @@ def block_parse(input)
   Block.new child
 end
 
+SUBSUBSECTION_EXPRESSION = /^###\s*(.*)$/
+SUBSECTION_EXPRESSION = /^##\s*(.*)$/
+SECTION_EXPRESSION = /^#\s*(.*)$/
+
+SECTION_PARSING_LIST = [
+  [Subsubsection, SUBSUBSECTION_EXPRESSION],
+  [Subsection, SUBSECTION_EXPRESSION],
+  [Section, SECTION_EXPRESSION]
+]
+
 def header_parse(input)
-  [Subsubsection, Subsection, Section].each do |expr|
-    child = expr.parse input[0]
-
-    next if child.nil?
-
-    input.shift
-    return Header.new child
+  SECTION_PARSING_LIST.each do |cls, expression|
+    match = expression.match input[0]
+    if match
+      input.shift
+      return cls.new(match[1])
+    end
   end
 
   return nil
