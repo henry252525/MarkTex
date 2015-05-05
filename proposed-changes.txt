@@ -8,3 +8,5 @@
   - /italic/
   - -strikethrough-
   - _underline_
+
+- Format outputted latex nicely
