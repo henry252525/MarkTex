@@ -108,5 +108,8 @@ def paragraph_parse(input)
   Paragraph.new data.join(' ')
 end
 
-
-puts document_parse(input_lines)
+if ARGV.delete('-b')
+  puts document_parse(input_lines).body
+else
+  puts document_parse(input_lines)
+end

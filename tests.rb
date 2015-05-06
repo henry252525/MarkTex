@@ -8,8 +8,8 @@ class MarkTex < Test::Unit::TestCase
   #TODO: Figure out if chomping is actually hiding some bugs
   #      (try to remove chomp and see if it breaks everything)
 
-  def execute(test_input)
-    `echo "#{test_input}" | ruby marktex.rb`.chomp
+  def execute_body(test_input)
+    `echo "#{test_input}" | ruby marktex.rb -b`.chomp
   end
 
   def read_file_contents path
@@ -19,7 +19,7 @@ class MarkTex < Test::Unit::TestCase
     contents
   end
 
-  def execute_test_dir test_case_dir
+  def execute_body_test_dir test_case_dir
     input_files = Dir.glob "test_cases/#{test_case_dir}/*.in"
     output_files = Dir.glob "test_cases/#{test_case_dir}/*.out"
     test_cases = input_files.zip output_files
@@ -31,7 +31,7 @@ class MarkTex < Test::Unit::TestCase
 
       assert_equal(
         output_data,
-        execute(input_data)
+        execute_body(input_data)
       )
     end
   end
@@ -39,15 +39,15 @@ class MarkTex < Test::Unit::TestCase
   # ================ TEST CASES ====================
 
   def test_unordered_list
-    execute_test_dir 'unordered_list'
+    execute_body_test_dir 'unordered_list'
   end
 
   def test_headers
-    execute_test_dir 'header'
+    execute_body_test_dir 'header'
   end
 
   def test_paragraph
-    execute_test_dir 'paragraph'
+    execute_body_test_dir 'paragraph'
   end
 
 end
