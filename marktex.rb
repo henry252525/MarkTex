@@ -2,6 +2,20 @@ Dir[File.dirname(__FILE__) + '/ast/*.rb'].each {|file| require file }
 
 input_lines = $stdin.read.split("\n")
 
+def document_parse(input)
+  blocks = []
+  until input.empty? do
+    current_block = block_parse input
+    if current_block.nil?
+      puts "could not parse"
+      input_lines.shift
+    else
+      blocks.push current_block
+    end
+  end
+  Document.new blocks
+end
+
 def block_parse(input)
   child = header_parse(input) || unordered_list_parse(input) || paragraph_parse(input)
   return nil if child.nil?
@@ -95,17 +109,4 @@ def paragraph_parse(input)
 end
 
 
-
-
-
-until input_lines.empty? do
-  prev_output = block_parse input_lines
-  if prev_output.nil?
-    puts "could not parse"
-    input_lines.shift
-  else
-    puts prev_output
-  end
-end
-
-
+puts document_parse(input_lines)
