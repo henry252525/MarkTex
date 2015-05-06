@@ -1,0 +1,6 @@
+Document          <= Block*
+Block             <= Header | UnorderedList | Paragraph
+Header            <= Subsubsection | Subsection | Section
+UnorderedList     <= UnorderedListItem*
+UnorderedListItem <= UnorderedList | Paragraph
+Paragraph         <= .*
