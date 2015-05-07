@@ -8,8 +8,8 @@ class Title
     return "" if @title.nil?
     [
       "\\title{#{@title}}",
-      @author.empty? ? "\\author{#{@author}}" : nil,
+      @author.empty? ? nil : "\\author{#{@author}}",
       "\\maketitle"
-    ].reject(nil).join("\n")
+    ].reject(&:nil?).join("\n")
   end
 end

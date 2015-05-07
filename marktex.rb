@@ -10,7 +10,7 @@ def document_parse(input)
     current_block = block_parse input
     if current_block.nil?
       puts "could not parse"
-      input_lines.shift
+      input.shift
     else
       blocks.push current_block
     end
@@ -22,20 +22,17 @@ TITLE_EXPR = '~title: '
 AUTHOR_EXPR = '~author: '
 
 def title_parse(input)
-  title = nil
-  author = nil
-
   if input.first.start_with?(TITLE_EXPR)
-    title = input[TITLE_EXPR.length, -1]
+    title = input.first[TITLE_EXPR.length..-1]
     input.shift
   end
 
   if input.first.start_with?(AUTHOR_EXPR)
-    title = input[AUTHOR_EXPR.length, -1]
+    author = input.first[AUTHOR_EXPR.length..-1]
     input.shift
   end
 
-  Title.new title, author
+  Title.new(title, author)
 end
 
 def block_parse(input)
