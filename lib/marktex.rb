@@ -1,4 +1,5 @@
-Dir[File.dirname(__FILE__) + '/ast/*.rb'].each {|file| require file }
+MARKTEX_FILE_PATH = File.expand_path(File.dirname(__FILE__))
+Dir[MARKTEX_FILE_PATH + '/ast/*.rb'].each {|file| require file }
 
 input_lines = $stdin.read.split("\n")
 
