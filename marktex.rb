@@ -7,6 +7,10 @@ def document_parse(input)
 
   blocks = []
   until input.empty? do
+    # TODO: quick fix to handle empty lines in input
+    while input.first.strip.empty?
+      input.shift
+    end
     current_block = block_parse input
     if current_block.nil?
       abort("Error parsing")
