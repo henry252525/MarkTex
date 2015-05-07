@@ -1,9 +1,9 @@
 class Subsection
-  def initialize(data)
-    @data = data
+  def initialize(text)
+    @text = text
   end
 
   def to_s
-    "\\subsection{#{@data}}"
+    "\\subsection{#{@text.to_s}}"
   end
 end

@@ -1,10 +1,10 @@
 class Paragraph
 
-  def initialize(data)
-    @data = data
+  def initialize(terminal)
+    @terminal = terminal
   end
 
   def to_s
-    @data
+    @terminal.to_s
   end
 end

@@ -37,7 +37,7 @@ def header_parse(input)
     match = expression.match input[0]
     if match
       input.shift
-      return cls.new(match[1])
+      return cls.new(Terminal.new(match[1]))
     end
   end
 
@@ -77,7 +77,7 @@ def unordered_list_item_parse(input)
     child = unordered_list_parse(input) || paragraph_parse(input)
     children.push(child) unless child.nil?
   end
-  children.push(Paragraph.new('')) if children.empty?
+  children.push(Paragraph.new(Terminal.new(''))) if children.empty?
 
   UnorderedListItem.new children
 end
@@ -105,7 +105,7 @@ def paragraph_parse(input)
   end
 
   return nil if data.empty?
-  Paragraph.new data.join(' ')
+  Paragraph.new Terminal.new(data.join(' '))
 end
 
 if ARGV.delete('-b')
