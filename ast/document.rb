@@ -1,3 +1,5 @@
+require_relative 'helpers'
+
 class Document
 
   PREAMBLE = '''\usepackage{amsmath}
@@ -26,7 +28,7 @@ class Document
   end
 
   def body
-    @body ||= @blocks.map { |b| b.to_s }
+    Helpers::blocks_to_s @blocks
   end
 
   def to_s

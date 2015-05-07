@@ -97,9 +97,9 @@ def unordered_list_item_parse(input)
   children = []
   until input.empty?
     child = unordered_list_parse(input) || paragraph_parse(input)
-    children.push(child) unless child.nil?
+    children.push(Block.new(child)) unless child.nil?
   end
-  children.push(Paragraph.new(Terminal.new(''))) if children.empty?
+  children.push(Block.new(Paragraph.new(Terminal.new('')))) if children.empty?
 
   UnorderedListItem.new children
 end
