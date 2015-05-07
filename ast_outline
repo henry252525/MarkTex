@@ -1,4 +1,4 @@
-Document          <= Block*
+Document          <= Title Block*
 Block             <= Header | UnorderedList | Paragraph
 Header            <= Subsubsection | Subsection | Section
 UnorderedList     <= UnorderedListItem*

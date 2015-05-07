@@ -18,18 +18,20 @@ class Document
 
 \setlength\parindent{0pt}'''
 
-  def initialize(children)
-    @children = children
+  def initialize(title, blocks)
+    @title = title
+    @blocks = blocks
   end
 
   def body
-    @body ||= @children.map { |b| b.to_s }
+    @body ||= @blocks.map { |b| b.to_s }
   end
 
   def to_s
     ['\documentclass{article}',
      PREAMBLE,
      '\begin{document}',
+     @title.to_s,
      self.body,
      '\end{document}'].flatten.join("\n")
   end

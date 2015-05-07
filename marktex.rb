@@ -3,6 +3,8 @@ Dir[File.dirname(__FILE__) + '/ast/*.rb'].each {|file| require file }
 input_lines = $stdin.read.split("\n")
 
 def document_parse(input)
+  title = title_parse(input)
+
   blocks = []
   until input.empty? do
     current_block = block_parse input
@@ -13,7 +15,27 @@ def document_parse(input)
       blocks.push current_block
     end
   end
-  Document.new blocks
+  Document.new(title, blocks)
+end
+
+TITLE_EXPR = '~title: '
+AUTHOR_EXPR = '~author: '
+
+def title_parse(input)
+  title = nil
+  author = nil
+
+  if input.first.start_with?(TITLE_EXPR)
+    title = input[TITLE_EXPR.length, -1]
+    input.shift
+  end
+
+  if input.first.start_with?(AUTHOR_EXPR)
+    title = input[AUTHOR_EXPR.length, -1]
+    input.shift
+  end
+
+  Title.new title, author
 end
 
 def block_parse(input)
