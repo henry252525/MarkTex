@@ -1,0 +1,14 @@
+\begin{itemize}
+  \item I am a list item
+
+\begin{itemize}
+  \item I am a nested list item
+
+\begin{itemize}
+  \item I am a nested nested list item
+\end{itemize}
+  \item I am another nested list item
+\end{itemize}
+  \item I am another list item
+  \item I am another another list item
+\end{itemize}
