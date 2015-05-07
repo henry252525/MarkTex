@@ -10,3 +10,5 @@
   - _underline_
 
 - Format outputted latex nicely
+
+- Use Skim instead of preview to open PDFs
