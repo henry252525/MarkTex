@@ -7,12 +7,18 @@ class Terminal
   # TODO: Make this faster (regex is slow)
   # TODO: Emphasis
   RESERVED_CHARACTERS = [
-    '_', '#', '\\', '%'
+    '_', '#', '%' # '//'
   ]
   def self.character_escape(text)
+    # backslashes are weird, since they are evaluated twice by gsub and 
+    # everything gets super confusing. We just handle the case explicitly here.
+    text.gsub!('\\', '\\\\\\')
+
     RESERVED_CHARACTERS.each do |char|
       text.gsub!(char, "\\#{char}")
     end
+
+
     text
   end
 
