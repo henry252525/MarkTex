@@ -4,6 +4,8 @@ class Terminal
     @text = text
   end
 
+  # TODO: Make this faster (regex is slow)
+  # TODO: Emphasis
   RESERVED_CHARACTERS = [
     '_', '#', '\\', '%'
   ]
