@@ -1,4 +1,5 @@
 require 'parser'
+require 'ast/document'
 
 def read_file_contents path
   file = File.open path, 'rb'
@@ -10,8 +11,8 @@ end
 #TODO: Figure out if chomping is actually hiding some bugs
 #      (try to remove chomp and see if it breaks everything)
 
-def execute_body(test_input)
-  `echo "#{test_input}" | ruby lib/marktex.rb -b`.chomp
+def execute_body(parser, test_input)
+  parser.document_parse(test_input.split(/\n/)).body.chomp
 end
 
 describe Parser do
@@ -37,7 +38,7 @@ describe Parser do
 
         filename = File.basename input_file_path, '.in'
         it filename do
-          expect(output_data).to eql(execute_body input_data)
+          expect(output_data).to eql(execute_body @parser, input_data)
         end
       end
     end
