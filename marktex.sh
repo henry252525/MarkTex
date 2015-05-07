@@ -1,3 +1,3 @@
 #!/bin/sh
 
-cat test_file.txt | ruby marktex.rb
+cat $1 | ruby marktex.rb

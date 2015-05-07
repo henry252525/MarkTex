@@ -9,8 +9,7 @@ def document_parse(input)
   until input.empty? do
     current_block = block_parse input
     if current_block.nil?
-      puts "could not parse"
-      input.shift
+      abort("Error parsing")
     else
       blocks.push current_block
     end
