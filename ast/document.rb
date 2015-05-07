@@ -8,6 +8,7 @@ class Document
 \usepackage{cancel}
 \usepackage{enumerate}
 \usepackage{hyperref}
+\usepackage{titling}
 
 \DeclareGraphicsExtensions{.pdf,.png,.jpg}
 
@@ -16,7 +17,8 @@ class Document
 \let\Im\relax
 \DeclareMathOperator{\Im}{\operatorname{Im}}
 
-\setlength\parindent{0pt}'''
+\setlength\parindent{0pt}
+\setlength{\droptitle}{-7em}'''
 
   def initialize(title, blocks)
     @title = title
