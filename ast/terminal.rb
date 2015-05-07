@@ -4,8 +4,18 @@ class Terminal
     @text = text
   end
 
+  RESERVED_CHARACTERS = [
+    '_', '#', '\\', '%'
+  ]
+  def self.character_escape(text)
+    RESERVED_CHARACTERS.each do |char|
+      text.gsub!(char, "\\#{char}")
+    end
+    text
+  end
+
   def to_s
-    @text
+    self.class.character_escape @text
   end
 
 end
