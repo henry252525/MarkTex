@@ -1,0 +1,18 @@
+~title: Introduction to MarkTeX
+~author: Henry Chung and Elijah Andrews
+
+# Background
+## Motivation
+LaTeX is awesome, but extremely verbose. Typesetting lists, tables, etc is annoying. The resulting source code becomes hard to maintain. MarkDown on the other hand is pretty awesome to look at. It is a language designed to look good in plain-text. MarkTeX combines the awesomeness of both of these.
+
+## Solution
+This
+
+# Why MarkTeX is Awesome
+We have awesome code and awesome pdf rendering. We support a whole bunch of stuff such as
+* lists
+* paragraphs
+* and awesome_character_escaping? YES, those too! ALL 100% of them
+  * you can even nest lists!
+
+Please donate
