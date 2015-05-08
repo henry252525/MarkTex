@@ -17,13 +17,9 @@ end
 
 describe Parser do
 
-  PARSING_CATEGORIES = [
-    'header',
-    'paragraph',
-    'unordered_list',
-    'latex_block'
-  ]
-  PARSING_CATEGORIES.each do |category|
+  test_folders = Dir.entries('test_cases').select {|f| !File.directory? f}
+
+  test_folders.each do |category|
     context category do
       input_files = Dir.glob "test_cases/#{category}/*.in"
       output_files = Dir.glob "test_cases/#{category}/*.out"
