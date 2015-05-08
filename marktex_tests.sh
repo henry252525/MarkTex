@@ -1,3 +1,3 @@
 #!/bin/bash
 
-rspec spec/parser_spec.rb
+rspec spec/parser_spec.rb --color
