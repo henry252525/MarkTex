@@ -11,6 +11,7 @@ class Document
 \usepackage{enumerate}
 \usepackage{hyperref}
 \usepackage{titling}
+\usepackage{float}
 
 \DeclareGraphicsExtensions{.pdf,.png,.jpg}
 

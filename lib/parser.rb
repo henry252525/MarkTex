@@ -39,7 +39,11 @@ module Parser
   end
 
   def self.block_parse(input)
-    child = header_parse(input) || latex_block_parse(input) || unordered_list_parse(input) || paragraph_parse(input)
+    child = header_parse(input) ||
+        latex_block_parse(input) ||
+        unordered_list_parse(input) ||
+        self.figure_parse(input) ||
+        paragraph_parse(input)
     return nil if child.nil?
     Block.new child
   end
@@ -112,12 +116,26 @@ module Parser
   def self.unordered_list_item_parse(input)
     children = []
     until input.empty?
-      child = latex_block_parse(input) || unordered_list_parse(input) || paragraph_parse(input)
+      child = latex_block_parse(input) ||
+          unordered_list_parse(input) ||
+          self.figure_parse(input) ||
+          paragraph_parse(input)
       children.push(Block.new(child)) unless child.nil?
     end
     children.push(Block.new(Paragraph.new(Terminal.new('')))) if children.empty?
 
     UnorderedListItem.new children
+  end
+
+  FIGURE_EXPRESSION = "!["
+  # TODO: Handle brackets within caption
+  FIGURE_REGEX = /\!\[(.*)\]\((.*)\)/
+  def self.figure_parse(input)
+    return nil unless input.first.start_with? FIGURE_EXPRESSION
+
+    _, caption, path = FIGURE_REGEX.match(input.shift).to_a
+
+    Figure.new caption, path
   end
 
   # TODO: Do not repeat unordered list tokens

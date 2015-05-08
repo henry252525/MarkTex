@@ -1,6 +1,6 @@
 Document          <= Title Block*
-Block             <= Header | LatexBlock | UnorderedList | Paragraph
+Block             <= Header | LatexBlock | UnorderedList | Figure | Paragraph
 Header            <= Subsubsection | Subsection | Section
 UnorderedList     <= UnorderedListItem*
-UnorderedListItem <= LatexBlock | UnorderedList | Paragraph
+UnorderedListItem <= LatexBlock | UnorderedList | Figure | Paragraph
 Paragraph         <= .*
