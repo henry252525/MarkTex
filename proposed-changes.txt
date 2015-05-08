@@ -12,3 +12,12 @@
 - Format outputted latex nicely
 
 - Use Skim instead of preview to open PDFs
+
+- Add IDs to figures for future referencing
+  Proposed syntax: 
+  ![alt text](/dir){80%}<id> or
+  ![alt text](/dir)<id>{80%}
+
+  ~ref{id}
+
+
