@@ -1,8 +1,8 @@
 MARKTEX_FILE_PATH = File.expand_path(File.dirname(__FILE__))
 Dir[MARKTEX_FILE_PATH + '/ast/*.rb'].each {|file| require file }
 
-class Parser
-  def document_parse(input)
+module Parser
+  def self.document_parse(input)
     title = title_parse(input)
 
     blocks = []
@@ -24,7 +24,7 @@ class Parser
   TITLE_EXPR = '~title: '
   AUTHOR_EXPR = '~author: '
 
-  def title_parse(input)
+  def self.title_parse(input)
     if input.first.start_with?(TITLE_EXPR)
       title = input.first[TITLE_EXPR.length..-1]
       input.shift
@@ -38,7 +38,7 @@ class Parser
     Title.new(title, author)
   end
 
-  def block_parse(input)
+  def self.block_parse(input)
     child = header_parse(input) || unordered_list_parse(input) || paragraph_parse(input)
     return nil if child.nil?
     Block.new child
@@ -54,7 +54,7 @@ class Parser
     [Section, SECTION_EXPRESSION]
   ]
 
-  def header_parse(input)
+  def self.header_parse(input)
     SECTION_PARSING_LIST.each do |cls, expression|
       match = expression.match input[0]
       if match
@@ -67,7 +67,7 @@ class Parser
   end
 
   UNORDERED_LIST_TOKENS = ['* ', '- ']
-  def unordered_list_parse(input)
+  def self.unordered_list_parse(input)
     return nil unless input.first.start_with?(*UNORDERED_LIST_TOKENS)
     list_input = []
 
@@ -93,7 +93,7 @@ class Parser
     UnorderedList.new children
   end
 
-  def unordered_list_item_parse(input)
+  def self.unordered_list_item_parse(input)
     children = []
     until input.empty?
       child = unordered_list_parse(input) || paragraph_parse(input)
@@ -110,7 +110,7 @@ class Parser
     '- ',
     '* '
   ]
-  def paragraph_parse(input)
+  def self.paragraph_parse(input)
     data = []
     until input.empty? do
       if input.first.empty?
