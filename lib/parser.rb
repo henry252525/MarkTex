@@ -143,7 +143,8 @@ module Parser
     '#',
     '- ',
     '* ',
-    '~latex{'
+    '~latex{',
+    '!['
   ]
   def self.paragraph_parse(input)
     data = []
