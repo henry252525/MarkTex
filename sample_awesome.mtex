@@ -31,7 +31,17 @@ WHAAAAAAAAA!????
 
 And there are so many more reasons!!!!!!
 
-
+~latex{
+  \begin{center}
+    \begin{tabular}{c | c}
+      $x$ & $y$ \\
+      \hline
+      1 & 2 \\
+      1 & 2 \\
+      1 & 2
+    \end{tabular}
+  \end{center}
+}
 
 Which I won't detail right now.
 

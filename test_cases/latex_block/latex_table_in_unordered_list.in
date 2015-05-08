@@ -1,0 +1,13 @@
+* I am a list item
+
+  ~latex{
+    \begin{center}
+      \begin{tabular}{c | c}
+        $x$ & $y$ \\
+        \hline
+        1 & 2 \\
+        1 & 2 \\
+        1 & 2
+      \end{tabular}
+    \end{center}
+  }

@@ -39,7 +39,7 @@ module Parser
   end
 
   def self.block_parse(input)
-    child = header_parse(input) || unordered_list_parse(input) || paragraph_parse(input)
+    child = header_parse(input) || latex_block_parse(input) || unordered_list_parse(input) || paragraph_parse(input)
     return nil if child.nil?
     Block.new child
   end
@@ -64,6 +64,22 @@ module Parser
     end
 
     return nil
+  end
+
+  # TODO: Make more robust by perhaps keeping a stack of braces
+  LATEX_BLOCK_START_EXPRESSION = "~latex{"
+  LATEX_BLOCK_END_EXPRESSION = "}"
+  def self.latex_block_parse(input)
+    if input.first != LATEX_BLOCK_START_EXPRESSION
+      return nil
+    end
+    input.shift
+    raw_latex = []
+    until input.first == LATEX_BLOCK_END_EXPRESSION
+      raw_latex.push input.shift[2..-1]
+    end
+    input.shift
+    LatexBlock.new raw_latex
   end
 
   UNORDERED_LIST_TOKENS = ['* ', '- ']
@@ -96,7 +112,7 @@ module Parser
   def self.unordered_list_item_parse(input)
     children = []
     until input.empty?
-      child = unordered_list_parse(input) || paragraph_parse(input)
+      child = latex_block_parse(input) || unordered_list_parse(input) || paragraph_parse(input)
       children.push(Block.new(child)) unless child.nil?
     end
     children.push(Block.new(Paragraph.new(Terminal.new('')))) if children.empty?
@@ -108,7 +124,8 @@ module Parser
   FORBIDDEN_STRINGS = [
     '#',
     '- ',
-    '* '
+    '* ',
+    '~latex{'
   ]
   def self.paragraph_parse(input)
     data = []

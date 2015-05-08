@@ -20,7 +20,8 @@ describe Parser do
   PARSING_CATEGORIES = [
     'header',
     'paragraph',
-    'unordered_list'
+    'unordered_list',
+    'latex_block'
   ]
   PARSING_CATEGORIES.each do |category|
     context category do
