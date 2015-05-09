@@ -11,6 +11,6 @@ name=${1%.*}
 
 mkdir -p $BUILD_DIR
 
-rm $BUILD_DIR/$name.aux $BUILD_DIR/$name.log $BUILD_DIR/$name.out &> /dev/null
+rm "$BUILD_DIR/$name.aux" "$BUILD_DIR/$name.log" "$BUILD_DIR/$name.out" &> /dev/null
 
-./marktex.sh $1 | pdflatex -jobname=$name -output-directory $BUILD_DIR && open $BUILD_DIR/$name.pdf
+./marktex.sh "$1" | pdflatex -jobname="$name" -output-directory $BUILD_DIR && open "$BUILD_DIR/$name.pdf"
