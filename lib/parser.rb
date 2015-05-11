@@ -163,10 +163,10 @@ module Parser
     end
 
     return nil if inlines.empty?
-    Paragraph.new inlines
+    Paragraph.new inlines.flatten
   end
 
   def self.inline_parse(line)
-    Inline.new(Terminal.new line)
+    [Inline.new(Terminal.new line)]
   end
 end
