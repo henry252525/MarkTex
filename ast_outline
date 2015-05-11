@@ -5,5 +5,5 @@ UnorderedList     <= UnorderedListItem*
 UnorderedListItem <= LatexBlock | UnorderedList | Figure | Paragraph
 Paragraph         <= Inline*
 Inline            <= Bold | Italic | Terminal
-Bold              <= \*Inline\*
-Italic            <= /Inline/
+Bold              <= \*Inline*\*
+Italic            <= /Inline*/

@@ -42,7 +42,7 @@ module Parser
     child = header_parse(input) ||
         latex_block_parse(input) ||
         unordered_list_parse(input) ||
-        self.figure_parse(input) ||
+        figure_parse(input) ||
         paragraph_parse(input)
     return nil if child.nil?
     Block.new child
@@ -159,14 +159,50 @@ module Parser
         break if should_break
       end
       break if should_break
-      inlines.push inline_parse(input.shift)
+      inlines.push inlines_parse(input.shift.chars).map(&:to_s).join
     end
 
     return nil if inlines.empty?
     Paragraph.new inlines.flatten
   end
 
-  def self.inline_parse(line)
-    [Inline.new(Terminal.new line)]
+  def self.inlines_parse(characters)
+    children = []
+
+    until characters.empty? do
+      children.push(bold_parse(characters) || terminal_parse(characters))
+    end
+
+    children.map { |child| Inline.new child }
+  end
+
+
+  # RESERVED_INLINE_CHARACTERS = [
+  #   '*'
+  # ]
+  def self.terminal_parse(characters)
+    term = Terminal.new(characters.join)
+    characters.clear
+    term
+  end
+
+  def self.bold_parse(characters)
+    return unless characters.first == '*' && characters[1] != ' '
+
+    characters.shift(1)  # remove the first asterix
+
+    end_of_bold_index = nil
+    characters.each_with_index do |c, i|
+      next if i == 0
+      if c == '*' && c[i-1] != ' ' && c[i-1] != '\\'
+        end_of_bold_index = i
+        break
+      end
+    end
+    return unless end_of_bold_index
+
+    bold = Bold.new(inlines_parse(characters.shift(end_of_bold_index)))
+    characters.shift(1)  # remove the last asterix
+    bold
   end
 end
