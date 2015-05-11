@@ -122,7 +122,7 @@ module Parser
           paragraph_parse(input)
       children.push(Block.new(child)) unless child.nil?
     end
-    children.push(Block.new(Paragraph.new(Terminal.new('')))) if children.empty?
+    children.push(Block.new(Paragraph.initialize_empty)) if children.empty?
 
     UnorderedListItem.new children
   end
@@ -147,7 +147,7 @@ module Parser
     '!['
   ]
   def self.paragraph_parse(input)
-    data = []
+    inlines = []
     until input.empty? do
       if input.first.empty?
         input.shift
@@ -159,10 +159,14 @@ module Parser
         break if should_break
       end
       break if should_break
-      data.push input.shift
+      inlines.push inline_parse(input.shift)
     end
 
-    return nil if data.empty?
-    Paragraph.new Terminal.new(data.join(' '))
+    return nil if inlines.empty?
+    Paragraph.new inlines
+  end
+
+  def self.inline_parse(line)
+    Inline.new(Terminal.new line)
   end
 end
