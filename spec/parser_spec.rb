@@ -32,7 +32,7 @@ describe Parser do
 
         filename = File.basename input_file_path, '.in'
         it filename do
-          expect(output_data).to eql(execute_body input_data)
+          expect(execute_body input_data).to eql(output_data)
         end
       end
     end
