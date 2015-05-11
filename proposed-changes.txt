@@ -20,4 +20,6 @@
 
   ~ref{id}
 
+- Add support for unnumbered sections
 
+- Add support for ToC
