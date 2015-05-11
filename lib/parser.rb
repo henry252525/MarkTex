@@ -1,6 +1,8 @@
 MARKTEX_FILE_PATH = File.expand_path(File.dirname(__FILE__))
 Dir[MARKTEX_FILE_PATH + '/ast/*.rb'].each {|file| require file }
 
+require 'set'
+
 module Parser
   def self.document_parse(input)
     title = title_parse(input)
@@ -177,13 +179,19 @@ module Parser
   end
 
 
-  # RESERVED_INLINE_CHARACTERS = [
-  #   '*'
-  # ]
+  RESERVED_INLINE_CHARACTERS = Set.new([
+    '*'
+  ])
   def self.terminal_parse(characters)
-    term = Terminal.new(characters.join)
-    characters.clear
-    term
+    parsed_characters = []
+
+    until characters.empty? || RESERVED_INLINE_CHARACTERS.include?(characters.first) do
+      parsed_characters.push characters.shift
+    end
+
+    return if parsed_characters.empty?
+
+    Terminal.new(parsed_characters.join)
   end
 
   def self.bold_parse(characters)
