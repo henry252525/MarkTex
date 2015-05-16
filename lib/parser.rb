@@ -172,7 +172,11 @@ module Parser
     children = []
 
     until characters.empty? do
-      children.push(bold_parse(characters) || terminal_parse(characters))
+      children.push(
+        bold_parse(characters) ||
+        italic_parse(characters) ||
+        terminal_parse(characters)
+      )
     end
 
     children.map { |child| Inline.new child }
@@ -180,7 +184,7 @@ module Parser
 
 
   RESERVED_INLINE_CHARACTERS = Set.new([
-    '*'
+    '*', '/'
   ])
   def self.terminal_parse(characters)
     parsed_characters = []
@@ -212,5 +216,25 @@ module Parser
     bold = Bold.new(inlines_parse(characters.shift(end_of_bold_index)))
     characters.shift(1)  # remove the last asterix
     bold
+  end
+
+  def self.italic_parse(characters)
+    return unless characters.first == '/' && characters[1] != ' '
+
+    characters.shift(1)  # remove the first slash
+
+    end_of_italic_index = nil
+    characters.each_with_index do |c, i|
+      next if i == 0
+      if c == '/' && c[i-1] != ' ' && c[i-1] != '\\'
+        end_of_italic_index = i
+        break
+      end
+    end
+    return unless end_of_italic_index
+
+    italic = Italic.new(inlines_parse(characters.shift(end_of_italic_index)))
+    characters.shift(1)  # remove the last slash
+    italic
   end
 end

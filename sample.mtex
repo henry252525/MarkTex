@@ -8,7 +8,7 @@ LaTeX is awesome, but extremely verbose. Typesetting lists, tables, etc is annoy
 Another paragraph
 
 ## Solution
-This
+This is /the/ *solution*. We can */even/ nest /things!/*
 
 # Why MarkTeX is Awesome
 We have awesome code and awesome pdf rendering. We support a whole bunch of stuff such as
