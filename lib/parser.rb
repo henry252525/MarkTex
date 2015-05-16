@@ -199,42 +199,30 @@ module Parser
   end
 
   def self.bold_parse(characters)
-    return unless characters.first == '*' && characters[1] != ' '
-
-    characters.shift(1)  # remove the first asterix
-
-    end_of_bold_index = nil
-    characters.each_with_index do |c, i|
-      next if i == 0
-      if c == '*' && c[i-1] != ' ' && c[i-1] != '\\'
-        end_of_bold_index = i
-        break
-      end
-    end
-    return unless end_of_bold_index
-
-    bold = Bold.new(inlines_parse(characters.shift(end_of_bold_index)))
-    characters.shift(1)  # remove the last asterix
-    bold
+    inline_element_parse('*', Bold, characters)
   end
 
   def self.italic_parse(characters)
-    return unless characters.first == '/' && characters[1] != ' '
+    inline_element_parse('/', Italic, characters)
+  end
 
-    characters.shift(1)  # remove the first slash
+  def self.inline_element_parse(wrap_symbol, ast_type, characters)
+    return unless characters.first == wrap_symbol && characters[1] != ' '
 
-    end_of_italic_index = nil
+    characters.shift(1)  # remove the first wrap symbol
+
+    end_of_inline_element_index = nil
     characters.each_with_index do |c, i|
       next if i == 0
-      if c == '/' && c[i-1] != ' ' && c[i-1] != '\\'
-        end_of_italic_index = i
+      if c == wrap_symbol && c[i-1] != ' ' && c[i-1] != '\\'
+        end_of_inline_element_index = i
         break
       end
     end
-    return unless end_of_italic_index
+    return unless end_of_inline_element_index
 
-    italic = Italic.new(inlines_parse(characters.shift(end_of_italic_index)))
-    characters.shift(1)  # remove the last slash
-    italic
+    inline_ast = ast_type.new(inlines_parse(characters.shift(end_of_inline_element_index)))
+    characters.shift(1)  # remove the last wrap symbol
+    inline_ast
   end
 end
