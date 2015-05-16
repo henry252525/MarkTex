@@ -18,7 +18,6 @@ class Terminal
       text.gsub!(char, "\\#{char}")
     end
 
-
     text
   end
 

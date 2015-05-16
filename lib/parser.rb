@@ -175,6 +175,7 @@ module Parser
       children.push(
         bold_parse(characters) ||
         italic_parse(characters) ||
+        underline_parse(characters) ||
         terminal_parse(characters)
       )
     end
@@ -184,13 +185,14 @@ module Parser
 
 
   RESERVED_INLINE_CHARACTERS = Set.new([
-    '*', '/'
+    '*', '/', '_'
   ])
   def self.terminal_parse(characters)
     parsed_characters = []
 
-    until characters.empty? || RESERVED_INLINE_CHARACTERS.include?(characters.first) do
+    loop do
       parsed_characters.push characters.shift
+      break if characters.empty? || RESERVED_INLINE_CHARACTERS.include?(characters.first)
     end
 
     return if parsed_characters.empty?
@@ -206,22 +208,29 @@ module Parser
     inline_element_parse('/', Italic, characters)
   end
 
+  def self.underline_parse(characters)
+    inline_element_parse('_', Underline, characters)
+  end
+
   def self.inline_element_parse(wrap_symbol, ast_type, characters)
     return unless characters.first == wrap_symbol && characters[1] != ' '
-
-    characters.shift(1)  # remove the first wrap symbol
 
     end_of_inline_element_index = nil
     characters.each_with_index do |c, i|
       next if i == 0
-      if c == wrap_symbol && c[i-1] != ' ' && c[i-1] != '\\'
+      is_wrap_symbol = c == wrap_symbol
+      is_not_delimiter = characters[i-1] != ' ' && (characters[i+1].nil? || characters[i+1] == ' ')
+      is_cancelled = characters[i-1] == '\\'
+      if is_wrap_symbol && is_not_delimiter && !is_cancelled
         end_of_inline_element_index = i
         break
       end
     end
     return unless end_of_inline_element_index
 
-    inline_ast = ast_type.new(inlines_parse(characters.shift(end_of_inline_element_index)))
+    characters.shift(1)  # remove the first wrap symbol
+    inline_element_characters = characters.shift(end_of_inline_element_index - 1)
+    inline_ast = ast_type.new(inlines_parse(inline_element_characters))
     characters.shift(1)  # remove the last wrap symbol
     inline_ast
   end
