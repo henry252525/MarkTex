@@ -4,6 +4,8 @@ class Underline
     @inlines = inlines
   end
 
+  # \uline{} was used for underlining LaTeX since it carries over underlining
+  # from the first line
   def to_s
     [
       '\uline{',
