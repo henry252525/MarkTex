@@ -9,3 +9,4 @@ Bold              <= \*Inline*\*
 Italic            <= /Inline*/
 Underline         <= _Inline*_
 CodeInline        <= `Terminal`
+MathInline        <= $.*$

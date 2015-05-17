@@ -177,6 +177,7 @@ module Parser
         italic_parse(characters) ||
         underline_parse(characters) ||
         code_inline_parse(characters) ||
+        math_inline_parse(characters) ||
         terminal_parse(characters)
       )
     end
@@ -186,7 +187,7 @@ module Parser
 
 
   RESERVED_INLINE_CHARACTERS = Set.new([
-    '*', '/', '_', '`'
+    '*', '/', '_', '`', `$`
   ])
   def self.terminal_parse(characters)
     parsed_characters = []
@@ -227,6 +228,13 @@ module Parser
     return if inline_element_characters.nil?
 
     CodeInline.new(Terminal.new(inline_element_characters.join))
+  end
+
+  def self.math_inline_parse(characters)
+    inline_element_characters = get_inline_element_content('$', characters)
+    return if inline_element_characters.nil?
+
+    MathInline.new(inline_element_characters.join)
   end
 
   def self.get_inline_element_content(wrap_symbol, characters)
