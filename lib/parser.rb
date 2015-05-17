@@ -202,22 +202,34 @@ module Parser
   end
 
   def self.bold_parse(characters)
-    inline_element_parse('*', Bold, characters)
+    inline_element_characters = get_inline_element_content('*', characters)
+    return if inline_element_characters.nil?
+
+    Bold.new(inlines_parse(inline_element_characters))
   end
 
   def self.italic_parse(characters)
-    inline_element_parse('/', Italic, characters)
+    inline_element_characters = get_inline_element_content('/', characters)
+    return if inline_element_characters.nil?
+
+    Italic.new(inlines_parse(inline_element_characters))
   end
 
   def self.underline_parse(characters)
-    inline_element_parse('_', Underline, characters)
+    inline_element_characters = get_inline_element_content('_', characters)
+    return if inline_element_characters.nil?
+
+    Underline.new(inlines_parse(inline_element_characters))
   end
 
   def self.code_inline_parse(characters)
-    inline_element_parse('`', CodeInline, characters)
+    inline_element_characters = get_inline_element_content('`', characters)
+    return if inline_element_characters.nil?
+
+    CodeInline.new(Terminal.new(inline_element_characters.join))
   end
 
-  def self.inline_element_parse(wrap_symbol, ast_type, characters)
+  def self.get_inline_element_content(wrap_symbol, characters)
     return unless characters.first == wrap_symbol && characters[1] != ' '
 
     end_of_inline_element_index = nil
@@ -235,8 +247,7 @@ module Parser
 
     characters.shift(1)  # remove the first wrap symbol
     inline_element_characters = characters.shift(end_of_inline_element_index - 1)
-    inline_ast = ast_type.new(inlines_parse(inline_element_characters))
     characters.shift(1)  # remove the last wrap symbol
-    inline_ast
+    inline_element_characters
   end
 end

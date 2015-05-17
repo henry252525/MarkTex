@@ -1,15 +1,11 @@
 class CodeInline
 
-  def initialize(inlines)
-    @inlines = inlines
+  def initialize(terminal)
+    @terminal = terminal
   end
 
   def to_s
-    [
-      '\texttt{',
-      @inlines.map(&:to_s),
-      '}'
-    ].flatten.join
+    "\\texttt{#{@terminal.to_s}}"
   end
 
 end
