@@ -219,7 +219,7 @@ module Parser
     characters.each_with_index do |c, i|
       next if i == 0
       is_wrap_symbol = c == wrap_symbol
-      is_not_delimiter = characters[i-1] != ' ' && (characters[i+1].nil? || characters[i+1] == ' ')
+      is_not_delimiter = characters[i-1] != ' ' && (characters[i+1].nil? || characters[i+1] =~ /\W|\s/)
       is_cancelled = characters[i-1] == '\\'
       if is_wrap_symbol && is_not_delimiter && !is_cancelled
         end_of_inline_element_index = i
