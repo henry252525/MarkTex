@@ -176,6 +176,7 @@ module Parser
         bold_parse(characters) ||
         italic_parse(characters) ||
         underline_parse(characters) ||
+        code_inline_parse(characters) ||
         terminal_parse(characters)
       )
     end
@@ -185,7 +186,7 @@ module Parser
 
 
   RESERVED_INLINE_CHARACTERS = Set.new([
-    '*', '/', '_'
+    '*', '/', '_', '`'
   ])
   def self.terminal_parse(characters)
     parsed_characters = []
@@ -210,6 +211,10 @@ module Parser
 
   def self.underline_parse(characters)
     inline_element_parse('_', Underline, characters)
+  end
+
+  def self.code_inline_parse(characters)
+    inline_element_parse('`', CodeInline, characters)
   end
 
   def self.inline_element_parse(wrap_symbol, ast_type, characters)
