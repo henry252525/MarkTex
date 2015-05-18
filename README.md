@@ -99,9 +99,118 @@ output. Use this is you want to integrate MarkTex into another toolchain:
 *Note*: the scripts currently rely on the directory from which they were
 executed. Therefore, you should only execute them from the MarkTex directory.
 
+## Syntax
+
+MarkTex uses a modified version of Markdown. It is not a strict superset of
+Markdown; some Markdown constructs have been removed or retooled. However,
+anybody who is familiar with Markdown should have no problem adapting to
+MarkTex.
+
+### Title and Author
+
+Every MarkTex document starts with the following two lines:
+
+```
+~title: <Awesome title>
+~author: <My name; optional>
+```
+
+Where the content in angle brackets can be replaced with anything you'd like.
+
+### Text
+
+After this, you can type text normally. Each paragraph should have its own line,
+with a blank line separating paragraphs (use a text editor that has word wrap).
+
+### Emphasis (Bold & Italics)
+
+Text can be bolded by surrounding it in `*`s. Text can be italicized by
+surrounding it in `/`. Text can be both italicized and bolded.
+
+```
+*bold*
+/italic/
+*/bold and italic/*
+```
+
+
+*Note*: Bold and italic elements cannot span more than one line.
+
+
+### Headings
+
+MarkTex supports three levels of headings:
+
+```
+# <Section Name>
+## <Subsection Name>
+### <Subsubsection Name>
+```
+
+### Lists
+
+MarkTex lists start with `*` or `-`.
+
+```
+- First list element
+- Second list element
+  * Nested list element 1
+  * Nested list element 2
+- Third list element
+```
+
+Elements can be nested within lists. Elements under a list item are
+indented with two spaces to indicate that they are a nested element.
+
+### Code
+
+MarkTex supports inline code at this time:
+
+```
+This line has `code`.
+```
+
+### Figures
+
+Figure locations should be specified relative to the location of your source
+file. Right now, `.pdf`, `.jpg`, and `.png` files are supported. *Note*: when
+you specify your file location, **do not** put the file extension.
+
+```
+![Figure caption!](figure/location)
+```
+
+### Embedded Latex
+
+LaTeX can be embedded into your document if you need a feature that is not
+supported by MarkTex. Make sure that you indent the content in the `~latex` block
+with two spaces.
+
+```
+~latex{
+
+  \begin{center}
+    \begin{tabular}{c | c}
+      $x$ & $y$ \\
+      \hline
+      1 & 2 \\
+      1 & 2 \\
+      1 & 2
+    \end{tabular}
+  \end{center}
+
+}
+```
+
+Hopefully you won't have to use this much, since MarkTex should define most
+constructs that you'd use.
+
+
+
+
 ## Contributing
 
-First off -- thank you for contributing! You are awesome.
+First off — thank you for contributing! You are awesome.
 
 Tests can be executed by running `marktex_tests.sh`. 
 
@@ -112,15 +221,14 @@ verify that the output matches that of the `<name>.out` file. Tests are added by
 creating a new `.in` and `.out` file pair; no code has to be modified for the
 new test case to be executed.
 
-
-## Syntax
-
-TODO
-
 ## To do
 - Proper packaging (using Ruby gems)
 - Better scripts that do not depend on current directory
 - Test on Linux
 - Commenting
+- Unordered lists
+- Math mode
+- code blocks
+- extend figure notation to allow for labels and text-width
 
 
