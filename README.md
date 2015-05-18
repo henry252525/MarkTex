@@ -19,7 +19,7 @@ still be typeset using LaTeX.
 
 MarkTex allows us to replace this:
 
-```
+```latex
 \documentclass{article}
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -56,9 +56,6 @@ With this:
 
 *MarkTex* is pretty awesome.
 ```
-
-Which compiles into this:
-TODO: Put image
 
 ## Usage
 
