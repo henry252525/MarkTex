@@ -59,6 +59,20 @@ With this:
 *MarkTex* is pretty awesome.
 ```
 
+### Why Ruby?
+
+We decided to write MarkTex in Ruby for the following reasons:
+
+1. It's a high-level scripting language that allows for rapid prototyping. Since
+   MarkTex is still in heavy development, we wanted to use a language that would
+   allow us to build MarkTex is a short amount of time.
+2. Compared to Python, Ruby has fantastic regular expression and string manipulation support
+
+We will likely reach a point where Ruby is too slow for MarkTex. At this point,
+we will rewrite MarkTex in a lower-level language where we can perform more
+optimizations. For now, Ruby seems to be fast enough, since `latexmk` is
+actually the slowest part of the compilation process.
+
 ## Instructions
 
 Since MarkTex is a work in progress, we've yet to create a package for it. For
