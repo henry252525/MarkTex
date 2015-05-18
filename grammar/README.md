@@ -36,7 +36,7 @@ should translate to the following equivalent code in LaTeX
 \textbf{bold, \textit{italic}, and \uline{underline}
 ```
 where `\uline{}` comes from the the `uline` package in LaTeX. Of course, nesting of these should also work. That is,
-```markdown
+```
 *bold and /bold and italic/*
 ```
 is equivalent to the following LaTeX
