@@ -202,7 +202,7 @@ A few things to think about:
 
 The proposed grammar to address the above two is
 ```
-![alt text](dir/to/some/image.jpg)[table_id]{scale}
+![alt text](dir/to/some/image.jpg)<table_id>{scale}
 ```
 which compiles into
 ```latex
