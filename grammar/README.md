@@ -1,5 +1,5 @@
 # Proposed Grammar
-MarkTeX uses the grammar of Markdown as its base. There were slight modifications to the grammar in order to make the syntax both more readable and easy to type.
+MarkTeX uses the grammar of Markdown as its base. There were slight modifications to the grammar in order to make the syntax both more readable and easier to type.
 
 ## Headers
 In Markdown, there are six different levels for headers. Namely,
@@ -184,32 +184,36 @@ This is equivalent to the following in LaTeX
     \caption{alt text}
 \end{figure}
 ```
-
+The caption for the image is optional. The following in MarkTeX
+```markdown
+  !(dir/to/some/image.jpg)
+```
+is also valid and translates to the following in LaTeX
+```latex
+\begin{figure}
+   \centering
+   \includegraphics{dir/to/some/image.jpg}
+\end{figure}
+```
 A few things to think about:
 
-1. The alt text is neglected
+1. Referencing tables
+2. Adjusting the scale of the image
 
-   We can drop the entire block for the alt text in Markdown as follows
-
-   ```markdown
-   !(dir/to/some/image.jpg)
-   ```
-   This translates to
-   ```latex
-   \begin{figure}
-       \centering
-       \includegraphics{dir/to/some/image.jpg}
-   \end{figure}
-   ```
-2. An option to adjust the scale of the image
-
-   ```latex
-   \begin{figure}
-       \centering
-       \includegraphics[width=some_scale\textwidth]{dir/to/some/image.jpg}
-   \end{figure}
-   ```
-   where `some_scale` can be set by the user via some optional syntax. As a default, `some_scale = 0.6`
+The proposed grammar to address the above two is
+```
+![alt text](dir/to/some/image.jpg)<table_id>{scale}
+```
+which compiles into
+```latex
+\begin{figure}
+   \centering
+   \includegraphics[width=scale\textwidth]{dir/to/some/image.jpg}
+   \caption{alt text}
+   \label{table_id}
+\end{figure}
+```
+where `scale = 0.6` is the default and the `table_id` can be referenced elsewhere in the document via `~ref{table_id}`.
 
 ## Special Characters and Character Escaping
 There are certain characters in LaTeX that should be escaped. Escaping of these characters should be done automatically within the compiler to enable more fluid note-taking. The following in Markdown
