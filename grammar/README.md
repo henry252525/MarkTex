@@ -12,19 +12,27 @@ In Markdown, there are six different levels for headers. Namely,
 ###### Header 6
 ```
 
-LaTeX, however, only has three different levels for sections. Instead, we can use `\paragraph{}` and `\subparagraph{}` to gain an additional two levels. Header 6 will be ignored. Therefore, the above headers in Markdown will translate to the following in LaTeX
+LaTeX, however, only has three different levels for sections. There are additional levels in LaTeX, namely `\part{}`, `\chapter{}`, `\paragraph{}`, and `\subparagraph{}`, but these don't really fit in with the styling of the `\section{}` constructs. Therefore, the proposed grammar is to support only three levels and to drop the rest. The above should compile into
 ```latex
 \section{Header 1}
 \subsection{Header 2}
 \subsubsection{Header 3}
-\paragraph{Header 4}
-\subparagraph{Header 5}
+% TODO: Header 4 not implemented
+% TODO: Header 5 not implemented
 % TODO: Header 6 not implemented
 ```
-
-Another consideration to think about is the additional `\part{}` and `\chapter{}` levels available to the `report` and `book` document classes in LaTeX. For now, we will ignore these two options and default to the `article` document class.
-
-Currently, all headers will be rendered as numbered sections. As a bonus, we may later allow an option to toggle between numbered and unnumbered sections.
+Currently, all headers will be rendered as numbered sections. The proposed grammar for unnumbered sections is to append a `*` after the `#` as follows
+```
+#* Header 1
+##* Header 2
+###* Header 3
+```
+which compiles into
+```latex
+\section*{Header 1}
+\subsection*{Header 2}
+\subsubsection*{Header 3}
+```
 
 ## Emphasis
 In Markdown, either one of `*` or `_` can be used to render **bold** or *italic* text. There is no support for underlining. The proposed syntax is to use pairs of `*`, `/`, and `_` to bold, italicize, and underline respectively. Therefore, in MarkTeX
@@ -215,6 +223,36 @@ which compiles into
 ```
 where `scale = 0.6` is the default and the `table_id` can be referenced elsewhere in the document via `~ref{table_id}`.
 
+## Math-Mode
+Similarly to LaTeX, inline math-mode can be entered via `$`. To enter block-level math-mode, the proposed grammar is to use `~math{}` or the short-hand `~m{}`. By default, the block-level math environment is the `begin{align*}` and `\end{align*}` in LaTeX. For example, the following in MarkTeX
+```
+Given an equation in the form of $0 = ax^2 + bx + c$, we can solve for $x$ using the quadratic formula as follows
+~math{
+  x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+}
+```
+should compile into the following in LaTeX
+```latex
+Given an equation in the form of $0 = ax^2 + bx + c$, we can solve for $x$ using the quadratic formula as follows
+\begin{align*}
+  x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+\end{align*}
+```
+As mentioned earlier, the short-hand `~m{}` should also work. That is,
+```
+~m{
+  x & = 1 + 1 \\
+    & = 2
+}
+```
+should result to
+```latex
+\begin{align*}
+  x & = 1 + 1 \\
+    & = 2
+\end{align*}
+```
+
 ## Special Characters and Character Escaping
 There are certain characters in LaTeX that should be escaped. Escaping of these characters should be done automatically within the compiler to enable more fluid note-taking. The following in Markdown
 ```markdown
@@ -233,27 +271,18 @@ should compile to
 \textit{This entire block is in italics}, but this\_random\_word is not
 ```
 
-### Math-Mode
-Another consideration would be the `$` character used to enter math-mode. This can be handled in one of two ways:
-
-1. This should be escaped manually by the user, or
-2. An alternate syntax should be used to indicate math-mode
-
-If option 1 is to be used, then this is a non-issue. If option 2 is to be used, the new proposed syntax would make no distinguishment between block-level math-mode and inline math-mode. For example, the following in Markdown
-```markdown
-Given an equation in the form of \[ 0 = ax^2 + bx + c \], we can solve for \[x\] using the quadratic formula as follows
-\[
-  x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
-\]
+## LaTeX Mode
+Any more powerful typesetting can be done in native LaTeX via the `~latex{}` environment.
 ```
-should translate to the following in LaTeX
+~latex{
+  blah
+}
+```
+compiles to
 ```latex
-Given an equation in the form of $0 = ax^2 + bx + c$, we can solve for $x$ using the quadratic formula as follows
-\[
-  x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
-\]
+blah
 ```
-The mapping to either `$` or `\[` should be inferred by the compiler.
+where `blah` can be anything.
 
 ### Quotes
 In LaTeX, the orientation of quotes are handled manually. That is, we would normally have to write
