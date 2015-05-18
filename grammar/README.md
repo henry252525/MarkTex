@@ -1,4 +1,6 @@
 # Proposed Grammar
+MarkTeX uses the grammar of Markdown as its base. There were slight modifications to the grammar in order to make the syntax both more readable and easy to type.
+
 ## Headers
 In Markdown, there are six different levels for headers. Namely,
 ```markdown
@@ -25,19 +27,17 @@ Another consideration to think about is the additional `\part{}` and `\chapter{}
 Currently, all headers will be rendered as numbered sections. As a bonus, we may later allow an option to toggle between numbered and unnumbered sections.
 
 ## Emphasis
-In Markdown, either one of `*` or `_` can be used to render **bold** or *italic* text. Therefore, the following code in Markdown
-```markdown
-**bold** and __bold__
-*italic* and _italic_
+In Markdown, either one of `*` or `_` can be used to render **bold** or *italic* text. There is no support for underlining. The proposed syntax is to use pairs of `*`, `/`, and `_` to bold, italicize, and underline respectively. Therefore, in MarkTeX
+```
+*bold*, /italic/, and _underline_
 ```
 should translate to the following equivalent code in LaTeX
 ```latex
-\textbf{bold} and \textbf{bold}
-\textit{italic} and \textit{italic}
+\textbf{bold, \textit{italic}, and \uline{underline}
 ```
-Of course, nesting of the two should also work. That is, in Markdown
-```markdown
-**bold and _bold and italic_**
+where `\uline{}` comes from the the `uline` package in LaTeX. Of course, nesting of these should also work. That is,
+```
+*bold and /bold and italic/*
 ```
 is equivalent to the following LaTeX
 ```latex
@@ -99,15 +99,19 @@ This is equivalent to the following in LaTeX
 ```
 
 ### Ordered Lists
-Ordered lists are preceeded by `n.` instead of `-` or `*`, where `n` is a number. Identical nesting concepts exist for ordered lists as they do for unordered lists. Mixing of the two also works. For example, the following code in Markdown
+Ordered lists are preceeded by `n.` instead of `-` or `*`, where `n` is a number. For example, a list in Markdown would look as follows
 ```markdown
-1. I am number 1
-   * As per usual
-   * #YOLOSWAG #LifeIsTooEasy #FBB
-2. I am the first loser
-3. Just barely got bronze!
+1. I am a point
+2. I am the second point
+3. Me too!
 ```
-produces this following list
+Although the syntax is nice and clean, it doesn't really make sense for the user to have to specify his/her own numbering. This should be done by default. The proposed equivalent grammar for ordered lists in MarkTeX is
+```
+n. I am a point
+n. I am the second point
+n. Me too!
+```
+Identical nesting concepts exist for ordered lists as they do for unordered lists. Mixing of the two also works. For example, to produce the following list
 
 1. I am number 1
    * As per usual
@@ -115,7 +119,15 @@ produces this following list
 2. I am the first loser
 3. Just barely got bronze!
 
-The equivalent LaTeX code for this is similar to that of an unordered list where instead of `itemize`, we use `enumerate`
+the code MarkTeX would look like
+```
+n. I am number 1
+   * As per usual
+   * #YOLOSWAG #LifeIsTooEasy #FBB
+n. I am the first loser
+n. Just barely got bronze!
+```
+And equivalently, the LaTeX code would look like
 ```latex
 \begin{enumerate}
     \item I am number 1
@@ -128,10 +140,8 @@ The equivalent LaTeX code for this is similar to that of an unordered list where
 \end{enumerate}
 ```
 
-TODO: Is it a good idea to have the user manually enter the number in an ordered list? Or do we want to add a twist to this where the numbering is taken care of by the compiler?
-
 ## Tables
-TODO: What's a good syntax we can use to make typesetting tables easy?
+There is official support for tables in Markdown. Various flavours of Markdown introduced their own support for tables each with their own grammar. In almost all cases, the solutions that these various flavours chose focused more on readability with little consideration on ease of typing. The proposed grammar for tables in MarkTeX aims to address the latter case.
 
 ### Proposed Method #1
 A good starting point could be http://en.wikipedia.org/wiki/Textile_%28markup_language%29#Tables where instead of using `_.` to denote boldface, we can change it up a little bit and use it to denote alignment. We can also double up on the pipe symbol (use `||` instead of `|`) to get a stronger vertical line separation. Similarly, we can use either `-` or `=` to specify the horizontal rules for our table.
