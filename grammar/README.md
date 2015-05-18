@@ -263,6 +263,19 @@ should compile to
 \textit{This entire block is in italics}, but this\_random\_word is not
 ```
 
+## LaTeX Mode
+Any more powerful typesetting can be done in native LaTeX via the `~latex{}` environment.
+```
+~latex{
+  blah
+}
+```
+compiles to
+```latex
+blah
+```
+where `blah` can be anything.
+
 ### Quotes
 In LaTeX, the orientation of quotes are handled manually. That is, we would normally have to write
 
