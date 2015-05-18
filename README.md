@@ -1,6 +1,8 @@
 # MarkTex
 A Markdown to LaTeX compiler that combines the power of the LaTeX typesetting engine with the simple and readable syntax provided by Markdown.
 
+MarkTex is currently under development, and should be treated as a work in progress. However, it should still be usable except for the occasional bug or missing feature you may encounter.
+
 ## Motivation
 
 As university students, we frequently take notes in class. Previously, we used LaTeX to compose these notes. We loved the typesetting capabilities of LaTeX, but ran into two problems:
@@ -57,8 +59,69 @@ With this:
 *MarkTex* is pretty awesome.
 ```
 
-## Usage
+## Instructions
 
-- Dependencies
-- Only tested on OS X
-- Version of ruby
+Since MarkTex is a work in progress, we've yet to create a package for it. For
+now, you'll need to clone the git repository. When we're ready to release
+the first version, we'll package it as a Ruby gem.
+
+We've been developing MarkTex on OS X, but it should work on Linux if the proper
+dependencies are installed.
+
+### Dependencies
+
+- Ruby 2.0.0p481 (other versions of Ruby will likely work)
+- `latexmk`. On OS X, the easiest way to get it is to install
+  [MacTex](https://tug.org/mactex/)
+
+### Usage
+
+First clone the repo:
+
+- `git clone git@github.com:henry252525/MarkTex.git`
+- `cd MarkTex`
+
+
+MarkTex comes with a few scripts. The most important one is `topdf.sh`, which
+takes a MarkTex file as input and opens a PDF with the compiled document.
+
+`./topdf.sh sample.mtex`
+
+The PDF that was opened can be found in `build/sample.pdf`. The name of the PDF
+file will always be that of the MarkTex file without its extension.
+
+
+Another script is `marktex.sh`, which outputs the compiled LaTeX to standard
+output. Use this is you want to integrate MarkTex into another toolchain:
+
+`./marktex.sh sample.mtex`
+
+*Note*: the scripts currently rely on the directory from which they were
+executed. Therefore, you should only execute them from the MarkTex directory.
+
+## Contributing
+
+First off -- thank you for contributing! You are awesome.
+
+Tests can be executed by running `marktex_tests.sh`. 
+
+Tests are located in the `test_cases` directory, under a subdirectory for the
+test category. For each category, there are several files with `.in` and
+`.out` extensions. The tests take each `<name>.in` file, run it through MarkTex, then
+verify that the output matches that of the `<name>.out` file. Tests are added by
+creating a new `.in` and `.out` file pair; no code has to be modified for the
+new test case to be executed.
+
+
+## Syntax
+
+TODO
+
+## To do
+- Add licence
+- Proper packaging (using Ruby gems)
+- Better scripts that do not depend on current directory
+- Test on Linux
+- Commenting
+
+
