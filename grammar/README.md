@@ -141,7 +141,7 @@ And equivalently, the LaTeX code would look like
 ```
 
 ## Tables
-TODO: What's a good syntax we can use to make typesetting tables easy?
+There is official support for tables in Markdown. Various flavours of Markdown introduced their own support for tables each with their own grammar. In almost all cases, the solutions that these various flavours chose focused more on readability with little consideration on ease of typing. The proposed grammar for tables in MarkTeX aims to address the latter case.
 
 ### Proposed Method #1
 A good starting point could be http://en.wikipedia.org/wiki/Textile_%28markup_language%29#Tables where instead of using `_.` to denote boldface, we can change it up a little bit and use it to denote alignment. We can also double up on the pipe symbol (use `||` instead of `|`) to get a stronger vertical line separation. Similarly, we can use either `-` or `=` to specify the horizontal rules for our table.
