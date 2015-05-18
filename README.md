@@ -233,7 +233,7 @@ new test case to be executed.
 - Add official Linux support
 - Add support for commenting out lines
 - Add support for ordered lists
-- Add support for math mode
+- Add support for block-level math mode (using `align`)
 - Add support for code blocks
 - Extend figure notation to allow for labels and text-width to be specified
 
