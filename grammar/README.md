@@ -121,11 +121,11 @@ Identical nesting concepts exist for ordered lists as they do for unordered list
 
 the code MarkTeX would look like
 ```
-1. I am number 1
+n. I am number 1
    * As per usual
    * #YOLOSWAG #LifeIsTooEasy #FBB
-2. I am the first loser
-3. Just barely got bronze!
+n. I am the first loser
+n. Just barely got bronze!
 ```
 And equivalently, the LaTeX code would look like
 ```latex
