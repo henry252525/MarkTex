@@ -23,3 +23,6 @@
 - Add support for unnumbered sections
 
 - Add support for ToC
+
+- Add commenting
+  Proposed syntax: // and /**/
