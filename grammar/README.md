@@ -12,19 +12,27 @@ In Markdown, there are six different levels for headers. Namely,
 ###### Header 6
 ```
 
-LaTeX, however, only has three different levels for sections. Instead, we can use `\paragraph{}` and `\subparagraph{}` to gain an additional two levels. Header 6 will be ignored. Therefore, the above headers in Markdown will translate to the following in LaTeX
+LaTeX, however, only has three different levels for sections. There are additional levels in LaTeX, namely `\part{}`, `\chapter{}`, `\paragraph{}`, and `\subparagraph{}`, but these don't really fit in with the styling of the `\section{}` constructs. Therefore, the proposed grammar is to support only three levels and to drop the rest. The above should compile into
 ```latex
 \section{Header 1}
 \subsection{Header 2}
 \subsubsection{Header 3}
-\paragraph{Header 4}
-\subparagraph{Header 5}
+% TODO: Header 4 not implemented
+% TODO: Header 5 not implemented
 % TODO: Header 6 not implemented
 ```
-
-Another consideration to think about is the additional `\part{}` and `\chapter{}` levels available to the `report` and `book` document classes in LaTeX. For now, we will ignore these two options and default to the `article` document class.
-
-Currently, all headers will be rendered as numbered sections. As a bonus, we may later allow an option to toggle between numbered and unnumbered sections.
+Currently, all headers will be rendered as numbered sections. The proposed grammar for unnumbered sections is to append a `*` after the `#` as follows
+```
+#* Header 1
+##* Header 2
+###* Header 3
+```
+which compiles into
+```latex
+\section*{Header 1}
+\subsection*{Header 2}
+\subsubsection*{Header 3}
+```
 
 ## Emphasis
 In Markdown, either one of `*` or `_` can be used to render **bold** or *italic* text. There is no support for underlining. The proposed syntax is to use pairs of `*`, `/`, and `_` to bold, italicize, and underline respectively. Therefore, in MarkTeX
