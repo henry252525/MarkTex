@@ -118,7 +118,6 @@ new test case to be executed.
 TODO
 
 ## To do
-- Add licence
 - Proper packaging (using Ruby gems)
 - Better scripts that do not depend on current directory
 - Test on Linux
