@@ -106,6 +106,10 @@ Markdown; some Markdown constructs have been removed or retooled. However,
 anybody who is familiar with Markdown should have no problem adapting to
 MarkTex.
 
+See `sample.mtex`, `sample_awesome.mtex`, and `sample_new.mtex` for a quick
+overview of the MarkTex syntax, or below for a detailed explaination of the
+language constructs.
+
 ### Title and Author
 
 Every MarkTex document starts with the following two lines:
@@ -124,7 +128,7 @@ with a blank line separating paragraphs (use a text editor that has word wrap).
 
 ### Emphasis (Bold & Italics)
 
-Text can be bolded by surrounding it in `*`s. Text can be italicized by
+Text can be bolded by surrounding it with `*`. Text can be italicized by
 surrounding it in `/`. Text can be both italicized and bolded.
 
 ```
@@ -149,7 +153,7 @@ MarkTex supports three levels of headings:
 
 ### Lists
 
-MarkTex lists start with `*` or `-`.
+MarkTex unordered lists start with `*` or `-`.
 
 ```
 - First list element
@@ -161,6 +165,8 @@ MarkTex lists start with `*` or `-`.
 
 Elements can be nested within lists. Elements under a list item are
 indented with two spaces to indicate that they are a nested element.
+
+MarkTex does not support ordered lists yet, but we'll be adding it soon.
 
 ### Code
 
@@ -224,11 +230,11 @@ new test case to be executed.
 ## To do
 - Proper packaging (using Ruby gems)
 - Better scripts that do not depend on current directory
-- Test on Linux
-- Commenting
-- Unordered lists
-- Math mode
-- code blocks
-- extend figure notation to allow for labels and text-width
+- Add official Linux support
+- Add support for commenting out lines
+- Add support for ordered lists
+- Add support for math mode
+- Add support for code blocks
+- Extend figure notation to allow for labels and text-width to be specified
 
 
