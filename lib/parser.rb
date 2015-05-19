@@ -176,6 +176,7 @@ module Parser
         bold_parse(characters) ||
         italic_parse(characters) ||
         underline_parse(characters) ||
+        quotation_parse(characters) ||
         code_inline_parse(characters) ||
         math_inline_parse(characters) ||
         terminal_parse(characters)
@@ -187,7 +188,7 @@ module Parser
 
 
   RESERVED_INLINE_CHARACTERS = Set.new([
-    '*', '/', '_', '`', `$`
+    '*', '/', '_', '"', '`', `$`
   ])
   def self.terminal_parse(characters)
     parsed_characters = []
@@ -221,6 +222,13 @@ module Parser
     return if inline_element_characters.nil?
 
     Underline.new(inlines_parse(inline_element_characters))
+  end
+
+  def self.quotation_parse(characters)
+    inline_element_characters = get_inline_element_content('"', characters)
+    return if inline_element_characters.nil?
+
+    Quotation.new(inlines_parse(inline_element_characters))
   end
 
   def self.code_inline_parse(characters)
