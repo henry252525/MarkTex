@@ -250,5 +250,5 @@ new test case to be executed.
 - Add support for block-level math mode (using `align`)
 - Add support for code blocks
 - Extend figure notation to allow for labels and text-width to be specified
-
+- Add continuous integration
 
