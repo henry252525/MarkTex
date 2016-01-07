@@ -188,7 +188,7 @@ module Parser
 
 
   RESERVED_INLINE_CHARACTERS = Set.new([
-    '*', '/', '_', '"', '`', `$`
+    '*', '/', '_', '"', '`', '$'
   ])
   def self.terminal_parse(characters)
     parsed_characters = []
