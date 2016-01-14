@@ -12,6 +12,7 @@ class Document
 \usepackage{hyperref}
 \usepackage{titling}
 \usepackage{float}
+\usepackage{centernot}
 
 \DeclareGraphicsExtensions{.pdf,.png,.jpg}
 
