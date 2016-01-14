@@ -1,0 +1,15 @@
+#! /bin/bash
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+BUILD_DIR=build
+
+if [ $# -eq 0 ]
+  then
+  echo "No arguments supplied"
+  exit 1
+fi
+
+name=${1%.*}
+
+mkdir -p $BUILD_DIR
+
+$SCRIPT_DIR/marktex "$1" | pdflatex -jobname="$name" -output-directory $BUILD_DIR && open "$BUILD_DIR/$name.pdf"

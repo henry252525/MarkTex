@@ -96,22 +96,23 @@ First clone the repo:
 - `cd MarkTex`
 
 
-MarkTex comes with a few scripts. The most important one is `topdf.sh`, which
-takes a MarkTex file as input and opens a PDF with the compiled document.
+MarkTex comes with a few scripts, which are located in the `bin` directory. You
+should add this directory to your `PATH`.
 
-`./topdf.sh sample.mtex`
+The most important script is `topdf`, which takes a MarkTex file as input and
+opens a PDF with the compiled document.
+
+`topdf sample.mtex`
 
 The PDF that was opened can be found in `build/sample.pdf`. The name of the PDF
 file will always be that of the MarkTex file without its extension.
 
 
-Another script is `marktex.sh`, which outputs the compiled LaTeX to standard
+Another script is `marktex`, which outputs the compiled LaTeX to standard
 output. Use this is you want to integrate MarkTex into another toolchain:
 
-`./marktex.sh sample.mtex`
+`marktex sample.mtex`
 
-*Note*: the scripts currently rely on the directory from which they were
-executed. Therefore, you should only execute them from the MarkTex directory.
 
 ## Syntax
 

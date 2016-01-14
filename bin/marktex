@@ -1,0 +1,5 @@
+#!/bin/sh
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+cat "$1" | ruby $SCRIPT_DIR/../lib/marktex.rb
