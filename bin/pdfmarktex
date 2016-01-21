@@ -16,7 +16,7 @@ if [ $# -ne $OPTIND ]
 fi
 
 fullname=${@:$OPTIND:1}
-name=${fullname%.%}
+name=${fullname%.*}
 
 mkdir -p $BUILD_DIR
 
