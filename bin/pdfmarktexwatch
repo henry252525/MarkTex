@@ -1,0 +1,21 @@
+#!/usr/bin/env python
+
+import argparse
+import os
+import subprocess
+import time
+
+arg_parser = argparse.ArgumentParser(description="Runs pdfmarktex on file change")
+arg_parser.add_argument("filename", help="Name of .mtex file")
+args = arg_parser.parse_args()
+
+filename = args.filename
+
+last_modified = 0
+while True:
+  modified = os.stat(filename).st_mtime
+  if last_modified != modified:
+    last_modified = modified
+    subprocess.call(["pdfmarktex", filename])
+  time.sleep(1)
+

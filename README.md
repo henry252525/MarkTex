@@ -99,14 +99,18 @@ First clone the repo:
 MarkTex comes with a few scripts, which are located in the `bin` directory. You
 should add this directory to your `PATH`.
 
-The most important script is `topdf`, which takes a MarkTex file as input and
+The most important script is `pdfmarktex`, which takes a MarkTex file as input and
 opens a PDF with the compiled document.
 
-`topdf sample.mtex`
+`pdfmarktex sample.mtex`
 
 The PDF that was opened can be found in `build/sample.pdf`. The name of the PDF
 file will always be that of the MarkTex file without its extension.
 
+As an added convenience, the `pdfmarktexwatch` script can be used to track a
+`.mtex` file and automatically run `pdfmarktex` in the background on file change.
+This, when combined with the Skim pdf viewer, provides real-time updates during
+note-taking.
 
 Another script is `marktex`, which outputs the compiled LaTeX to standard
 output. Use this is you want to integrate MarkTex into another toolchain:
